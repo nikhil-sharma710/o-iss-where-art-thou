@@ -1,5 +1,5 @@
 ## Midterm Project: O ISS, Where Art Thou?
-
+Cancel changes
 The objective of this project is to write and containerize a Flask application for tracking ISS positions. Four scripts are found in this repository:
 
 * `app.py`: 
@@ -39,19 +39,18 @@ $ wget https://nasa-public-data.s3.amazonaws.com/iss-coords/2022-02-13/ISS_sight
 
 Open a new Terminal window and navigate to this directory. To start the Flask service on unique port 5029, use the following commands:
 
-.. code-block:: console
-
-    $ export FLASK_APP=app.py
-    $ export FLASK_ENV=development
-    $ flask run -p 5029
-     * Serving Flask app "app.py" (lazy loading)
-     * Environment: development
-     * Debug mode: on
-     * Running on http://127.0.0.1:5029/ (Press CTRL+C to quit)
-     * Restarting with stat
-     * Debugger is active!
-     * Debugger PIN: 317-915-949
-
+```
+$ export FLASK_APP=app.py
+$ export FLASK_ENV=development
+$ flask run -p 5029
+ * Serving Flask app "app.py" (lazy loading)
+ * Environment: development
+ * Debug mode: on
+ * Running on http://127.0.0.1:5029/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 317-915-949
+```
 
 
 Use the command above to run the program `ml_data_analysis.py` using the data fromm `Meteorite_Landings.json`. The program will summarize the findings from each of the sites listed in the data, including the average mass of each meteorite, the amount of meteorites that land in each quadrant (Northeastern, Northwestern, Southeastern, Southwestern), and the amount of each class of meteorites that occurs. If you'd like to download your own data, such as the sample data `ML_Data_Sample.json`, use the following command:
