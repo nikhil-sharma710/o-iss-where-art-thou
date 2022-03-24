@@ -59,6 +59,7 @@ $ curl localhost:5029/read_data -X POST
 
 This will use the `POST` operation to load the data from file into memory. Below is a list of commands that return information:
 
+```
 curl localhost:5029/list_of_epochs - provides a list of all epochs in the positional data
 curl localhost:5029/epochs/<epoch_name>/info - provides all information about a specific epoch in the positional data
 curl localhost:5029/list_of_countries - provides a list of all countries in the sighting data
@@ -67,6 +68,7 @@ curl localhost:5029/<country_name>/list_of_regions - provides a list of all epoc
 curl localhost:5029/<country_name>/<region_name>/info - provides a list of all epochs in the positional data
 curl localhost:5029/<country_name>/<region_name>/list_of_cities - provides a list of all epochs in the positional data
 curl localhost:5029/<country_name>/<region_name>/<city_name>/info - provides a list of all epochs in the positional data
+```
 
 #### Step 5: Test Pytest File
 
