@@ -23,7 +23,7 @@ def how_to_interact():
  
     output = '\nHow to interact with the application:\n\n'
 
-    output+='First, load the data from file into memory with /read_data\n'
+    output+='First, load the data from file into memory with /read_data -X POST\n'
     output+='Below is a list of commands that return information:\n\n'
 
     output+='  1. /list_of_epochs - provides a list of all epochs in the positional data\n'
