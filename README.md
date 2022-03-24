@@ -35,6 +35,22 @@ Use the following commands to retrieve `ISS_OEM/ISS.OEM_J2K_EPH.xml` and `XMLsig
 $ wget https://nasa-public-data.s3.amazonaws.com/iss-coords/2022-02-13/ISS_OEM/ISS.OEM_J2K_EPH.xml
 $ wget https://nasa-public-data.s3.amazonaws.com/iss-coords/2022-02-13/ISS_sightings/XMLsightingData_citiesUSA08.xml
 ```
+#### Step 4:
+
+Open a new Terminal window and navigate to this directory. To start the Flask service on unique port 5029, use the following commands:
+
+.. code-block:: console
+
+    $ export FLASK_APP=app.py
+    $ export FLASK_ENV=development
+    $ flask run -p 5029
+     * Serving Flask app "app.py" (lazy loading)
+     * Environment: development
+     * Debug mode: on
+     * Running on http://127.0.0.1:5029/ (Press CTRL+C to quit)
+     * Restarting with stat
+     * Debugger is active!
+     * Debugger PIN: 317-915-949
 
 
 
