@@ -2,7 +2,7 @@ import xmltodict
 import logging
 from flask import Flask
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 
@@ -10,7 +10,7 @@ iss_epoch_data = {}
 iss_sighting_data = {}
 
 @app.route('/', methods=['GET'])
-def how_to_interact():
+def how_to_interact() -> str:
     """
     This function provides information on how to interact with the application.
 
@@ -48,7 +48,7 @@ def how_to_interact():
     return output
 
 @app.route('/list_of_epochs', methods=['GET'])
-def get_all_epochs():
+def get_all_epochs() -> str:
     """
     This function provides a list of all epochs in the positional data.
 
@@ -59,6 +59,8 @@ def get_all_epochs():
         output (str): The function returns a string of all epochs in the positional data.
     """ 
  
+    logging.info("Listing all epochs")
+
     output = ''
 
     for i in range(len(iss_epoch_data['ndm']['oem']['body']['segment']['data']['stateVector'])):
@@ -67,7 +69,7 @@ def get_all_epochs():
     return output
 
 @app.route('/epochs/<epoch_name>/info', methods=['GET'])
-def get_specific_epoch_info(epoch_name):
+def get_specific_epoch_info(epoch_name) -> dict:
     """
     This function provides all information about a specific Epoch in the positional data.
 
@@ -78,20 +80,14 @@ def get_specific_epoch_info(epoch_name):
         The function returns a dictionary of all the information about the entered epoch, including X, Y, and Z and X_DOT, Y_DOT, and Z_DOT.
     """
     
-    names = []
+    logging.info("Searching for information containing " + str(epoch_name))
 
     for i in range(len(iss_epoch_data['ndm']['oem']['body']['segment']['data']['stateVector'])):
-        names.append(iss_epoch_data['ndm']['oem']['body']['segment']['data']['stateVector'][i]['EPOCH'])
-
-    if epoch_name not in names:
-        logging.error('Not a valid entry for <epoch_names>.')
-    else:
-        for i in range(len(iss_epoch_data['ndm']['oem']['body']['segment']['data']['stateVector'])):
-            if (iss_epoch_data['ndm']['oem']['body']['segment']['data']['stateVector'][i]['EPOCH'] == epoch_name):
-                return iss_epoch_data['ndm']['oem']['body']['segment']['data']['stateVector'][i]
+        if (iss_epoch_data['ndm']['oem']['body']['segment']['data']['stateVector'][i]['EPOCH'] == epoch_name):
+            return iss_epoch_data['ndm']['oem']['body']['segment']['data']['stateVector'][i]
 
 @app.route('/list_of_countries', methods=['GET'])
-def get_all_countries():
+def get_all_countries() -> str:
     """
     This function provides a list of all countries from the sighting data.
     
@@ -101,6 +97,8 @@ def get_all_countries():
     Returns:
         output (str): The function returns a string of all countries in the sighting data, which in this case, is just United_States.
     """
+
+    logging.info("Listing all countries")
 
     output = ''
 
@@ -116,7 +114,7 @@ def get_all_countries():
     return output
 
 @app.route('/<country_name>/info', methods=['GET'])
-def get_specific_country_info(country_name):
+def get_specific_country_info(country_name) -> str:
     """
     This function provides all information about a specific country in the sighting data.
 
@@ -127,6 +125,8 @@ def get_specific_country_info(country_name):
         output (str): This function returns a string of every dictionary whose country is the specific country entered in the route.
     """
 
+    logging.info("Searching for information containing " + str(country_name))
+
     output = ''
 
     for i in range(len(iss_sighting_data['visible_passes']['visible_pass'])):
@@ -136,7 +136,7 @@ def get_specific_country_info(country_name):
     return output
 
 @app.route('/<country_name>/list_of_regions', methods=['GET'])
-def get_regions_in_country(country_name):
+def get_regions_in_country(country_name) -> str:
     """
     This function provides a list of regions associated with a given country in the sighting data.
 
@@ -146,6 +146,8 @@ def get_regions_in_country(country_name):
     Returns:
         output (str): This function returns a string of all regions in the specific country.
     """
+
+    logging.info("Listing all regions in " + str(country_name))
 
     output = ''
 
@@ -162,7 +164,7 @@ def get_regions_in_country(country_name):
     return output
 
 @app.route('/<country_name>/<region_name>/info', methods=['GET'])
-def get_specific_region_info(country_name, region_name):
+def get_specific_region_info(country_name, region_name) -> str:
     """
     This function provides all information about a specific region in the sighting data.
 
@@ -174,6 +176,8 @@ def get_specific_region_info(country_name, region_name):
         output (str): This function returns a string of every dictionary whose region and country are the specific region and country entered in the route.
     """
 
+    logging.info("Searching for information containing " + str(region_name) + ", " + str(country_name))
+
     output = ''
 
     for i in range(len(iss_sighting_data['visible_passes']['visible_pass'])):
@@ -183,7 +187,7 @@ def get_specific_region_info(country_name, region_name):
     return output
 
 @app.route('/<country_name>/<region_name>/list_of_cities', methods=['GET'])
-def get_cities_in_country_and_region(country_name, region_name):
+def get_cities_in_country_and_region(country_name, region_name) -> str:
     """
     This function provides a list of cities associated with a given country and region in the sighting data.
 
@@ -194,6 +198,8 @@ def get_cities_in_country_and_region(country_name, region_name):
     Returns:
         output (str): This function returns a string of all cities that are in the specific region of the specific country.
     """
+
+    logging.info("Listing all cities in " + str(region_name) + ", " + str(country_name))
 
     output = ''
 
@@ -210,7 +216,7 @@ def get_cities_in_country_and_region(country_name, region_name):
     return output
 
 @app.route('/<country_name>/<region_name>/<city_name>/info', methods=['GET'])
-def get_specific_city_info(country_name, region_name, city_name):
+def get_specific_city_info(country_name, region_name, city_name) -> str:
     """
     This function provides all information about a specific region in the sighting data.
 
@@ -223,6 +229,8 @@ def get_specific_city_info(country_name, region_name, city_name):
         output (str): This function returns a string of every dictionary whose city, region, and country are the specific city, region, and country entered in the route.
     """
 
+    logging.info("Searching for all information containing " + str(city_name) + ", " + str(region_name) + ", " + str(country_name))
+
     output = ''
 
     for i in range(len(iss_sighting_data['visible_passes']['visible_pass'])):
@@ -232,7 +240,7 @@ def get_specific_city_info(country_name, region_name, city_name):
     return output
 
 @app.route('/read_data', methods=['POST'])
-def read_data_from_file_into_dict():
+def read_data_from_file_into_dict() -> str:
     """
     This function reads two different XML files and converts them into two dictionaries - iss_epoch_data and iss_sighting_data.
 
@@ -242,6 +250,8 @@ def read_data_from_file_into_dict():
     Returns:
         The function returns a message confirming that the data has been read from the file.
     """
+
+    logging.info("Reading data from files")
 
     global iss_epoch_data
     global iss_sighting_data

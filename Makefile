@@ -3,21 +3,22 @@ NAME ?= nikhilsharma710
 all: build run push
 
 images:
-
-     docker images | grep ${NAME}
+	docker images | grep ${NAME}
 
 ps:
-
-     docker ps -a | grep ${NAME}
+	docker ps -a | grep ${NAME}
 
 build:
-
-     docker build -t ${NAME}/ml_data_analysis:1.0 .
+	docker build -t ${NAME}/midterm:1.0 .
 
 run:
-
-     docker run --rm -v \${PWD}:/data ${NAME}/ml_data_analysis:1.0 ml_data_analysis.py /data/Meteorite_Landings.json
+	docker run --rm -d -p 5029:5000 --name nikhil-midterm ${NAME}/midterm:1.0
 
 push:
+	docker push ${NAME}/midterm:1.0
 
-     docker push ${NAME}/ml_d
+pull:
+	docker pull ${NAME}/midterm:1.0
+
+kill:
+	docker rm -f nikhil-midterm
